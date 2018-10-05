@@ -4,6 +4,8 @@ import { RippleMapMode, RippleObjectType } from '../common/enums';
 import { IRippleObjectData } from '../common/interfaces';
 import { RippleObjectText } from './rippleObjectText';
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
 export interface IRippleObjectProps {
     x: number;
     y: number;
@@ -13,7 +15,7 @@ export interface IRippleObjectProps {
     data: IRippleObjectData;
 }
 
-interface IRippleObjectPropsCombined extends IRippleObjectProps, React.DOMAttributes<SVGGElement> {
+interface IRippleObjectPropsCombined extends Omit<React.SVGProps<SVGGElement>, "x" | "y" | "width" | "height" | "type">, IRippleObjectProps {
     offsetX: number;
     offsetY: number;
     mode: RippleMapMode;

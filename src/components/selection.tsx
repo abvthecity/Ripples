@@ -11,7 +11,6 @@ enum ResizeDirection {
     TOP_RIGHT,
     BOTTOM_LEFT,
     BOTTOM_RIGHT,
-    MOVE,
 }
 
 interface ISelectionProps extends React.SVGProps<SVGGElement>, IScreen {
@@ -55,13 +54,6 @@ export class Selection extends React.PureComponent<ISelectionProps, ISelectionSt
             >
                 <rect style={{ fill: "transparent", display: this.state.isDragging ? "initial" : "none" }} width={screenWidth} height={screenHeight} />
                 <g transform={`translate(${x + offsetX}, ${y + offsetY})`}>
-                    <rect
-                        style={{ fill: "transparent", stroke: "transparent" }}
-                        width={w}
-                        height={h}
-                        cursor="move"
-                        onMouseDown={this.handleDragStart(ResizeDirection.MOVE)}
-                    />
                     {this.renderResizeSide({
                         x1: 0,
                         y1: 0,
@@ -212,10 +204,6 @@ export class Selection extends React.PureComponent<ISelectionProps, ISelectionSt
                 width = rect.width + deltaX;
                 height = rect.height + deltaY;
                 break;
-            }
-            case ResizeDirection.MOVE: {
-                x = rect.x + deltaX;
-                y = rect.y + deltaY;
             }
         }
 
